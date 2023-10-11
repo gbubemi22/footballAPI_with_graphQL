@@ -38,6 +38,7 @@ const connectDB = require('./DB/connect');
 
 
 //ROUTES
+const AuthRouter = require('./routers/authRouter');
 
 app.get('/', (req, res) => {
    res.json(`Wellcome to Oritse Codes`)
@@ -78,7 +79,7 @@ app.use(mongoSanitize());
 
 
 //USE ROUTES
-
+app.use('/api/v1/auth', AuthRouter);
 
 
 
