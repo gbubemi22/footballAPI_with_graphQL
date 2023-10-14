@@ -47,7 +47,7 @@ const AuthController = {
       throw new BadRequestError("Please provide username and password");
     }
 
-    const user = await await userService.getUserByEmail(email);
+    const user = await userResolver.Query.getUserByEmail({}, { email });
 
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) {
@@ -59,7 +59,13 @@ const AuthController = {
     });
 
     res.status(StatusCodes.OK).json({
-      user,
+      user: {
+        _id: user.id,
+        fullname: user.fullname,
+        email: user.email,
+        phonenumber: user.phonenumber,
+        role: user.role
+      },
       token,
     });
   },

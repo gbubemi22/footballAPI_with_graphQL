@@ -1,4 +1,4 @@
-const User = require('../../models/User');
+const User = require("../../models/User");
 
 module.exports = {
   Query: {
@@ -8,21 +8,21 @@ module.exports = {
     async getUsers() {
       return await User.find().sort({ createdAt: -1 });
     },
-    async getUserByEmail(_, { email }) { 
+    async getUserByEmail(_, { email }) {
       return await User.findOne({ email });
     },
   },
   Mutation: {
-     async createUser(_, { userInput }) {
-          const { fullname, username, email, phonenumber, password } = userInput;
-          
-          const createdUser = new User({
-            fullname: fullname,
-            username: username,
-            email: email,
-            phonenumber: phonenumber,
-            password: password,
-          });
+    async createUser(_, { userInput }) {
+      const { fullname, username, email, phonenumber, password } = userInput;
+
+      const createdUser = new User({
+        fullname,
+        username,
+        email,
+        phonenumber,
+        password,
+      });
 
       const result = await createdUser.save();
       console.log(result._doc);
@@ -36,7 +36,12 @@ module.exports = {
       return wasDeleted;
     },
     async editUser(_, { ID, EditUser: { fullname, phonenumber } }) {
-      const wasEdited = (await User.updateOne({ _id: ID }, { fullname: fullname, phonenumber: phonenumber })).modifiedCount;
+      const wasEdited = (
+        await User.updateOne(
+          { _id: ID },
+          { fullname: fullname, phonenumber: phonenumber }
+        )
+      ).modifiedCount;
       return wasEdited;
     },
   },

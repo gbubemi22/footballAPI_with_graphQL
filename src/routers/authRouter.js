@@ -11,9 +11,9 @@ router
 
 
 
-// router
-// .route('/register')
-// .post(AuthController.login);
+router
+.route('/login')
+.post(AuthController.login);
 
 
 
